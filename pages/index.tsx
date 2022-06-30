@@ -4,15 +4,14 @@ import {
   Container,
   CssBaseline,
   Grid,
-  InputLabel,
   MenuItem,
-  Select,
   TextField,
 } from '@mui/material';
 import type { NextPage } from 'next';
 import Head from 'next/head';
 import { ChangeEvent, FormEvent, useState } from 'react';
 import ResponsiveAppBar from '../components/AppBar';
+import MediaCard from '../components/MediaCard/index.';
 
 const Home: NextPage = () => {
   const [search, setSearch] = useState<Number>(2022);
@@ -102,6 +101,13 @@ const Home: NextPage = () => {
           </Box>
         </Box>
       </Container>
+
+      <MediaCard
+        posterUrl='9Gtg2DzBhmYamXBS1hKAhiwbBKS.jpg'
+        title='Doctor Strange in the Multiverse of Madness'
+        releaseDate='2022-05-04'
+        overview='Doctor Strange, with the help of mystical allies both old and new, traverses the mind-bending and dangerous alternate realities of the Multiverse to confront a mysterious new adversary.'
+      />
     </>
   );
 };

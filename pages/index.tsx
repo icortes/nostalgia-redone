@@ -1,5 +1,6 @@
 import {
   Box,
+  Button,
   Container,
   CssBaseline,
   Grid,
@@ -34,6 +35,7 @@ const Home: NextPage = () => {
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     setMedia(event.target.value);
+    console.log(media);
   };
 
   return (
@@ -54,7 +56,7 @@ const Home: NextPage = () => {
             onSubmit={handleSubmit}
             noValidate
             sx={{ mt: 1 }}>
-            <Grid container spacing={2}>
+            <Grid container spacing={2} justifyContent={'center'}>
               <Grid item xs={12} sm={6}>
                 <TextField
                   type={'number'}
@@ -83,6 +85,11 @@ const Home: NextPage = () => {
                     </MenuItem>
                   ))}
                 </TextField>
+              </Grid>
+              <Grid item sx={{ mb: 1 }}>
+                <Button type='submit' variant='contained' color='secondary'>
+                  Search
+                </Button>
               </Grid>
             </Grid>
           </Box>

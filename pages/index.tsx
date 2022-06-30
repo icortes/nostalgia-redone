@@ -26,16 +26,21 @@ const Home: NextPage = () => {
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const data = new FormData(event.currentTarget);
     console.log({
-      search: data.get('search'),
-      media: data.get('media'),
+      search,
+      media,
     });
   };
 
-  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
+  const handleMediaChange = (event: ChangeEvent<HTMLInputElement>) => {
     setMedia(event.target.value);
-    console.log(media);
+  };
+
+  const handleSearchChange = (event: ChangeEvent<HTMLInputElement>) => {
+    let year: number = Number(event.target.value);
+    if (year.toString().length <= 4) {
+      setSearch(year);
+    }
   };
 
   return (
@@ -65,8 +70,10 @@ const Home: NextPage = () => {
                   fullWidth
                   id='search'
                   name='search'
-                  label='Search Year'
+                  label='Search Year (YYYY)'
+                  value={search}
                   autoFocus
+                  onChange={handleSearchChange}
                 />
               </Grid>
               <Grid item xs={12} sm={6}>
@@ -78,7 +85,7 @@ const Home: NextPage = () => {
                   required
                   label={'Select Media Type'}
                   value={media}
-                  onChange={handleChange}>
+                  onChange={handleMediaChange}>
                   {options.map((option) => (
                     <MenuItem key={option.mediaType} value={option.mediaType}>
                       {option.mediaType}

@@ -6,10 +6,12 @@ import {
   Grid,
   MenuItem,
   TextField,
+  Typography,
 } from '@mui/material';
+import axios from 'axios';
 import type { GetServerSideProps, NextPage } from 'next';
 import Head from 'next/head';
-import { ChangeEvent, FormEvent, useState } from 'react';
+import { ChangeEvent, FormEvent, useEffect, useState } from 'react';
 import Carousel from 'react-material-ui-carousel';
 import ResponsiveAppBar from '../components/AppBar';
 import MediaCard from '../components/MediaCard';
@@ -45,6 +47,10 @@ function Home(props: any) {
       setSearch(year);
     }
   };
+
+  useEffect(() => {
+    
+  })
 
   return (
     <>
@@ -106,13 +112,22 @@ function Home(props: any) {
         </Box>
 
         <Box bgcolor={'white'} component={'div'} sx={{ py: 4, px: 3 }}>
+          <Typography variant='h4' component={'h1'} sx={{ pb: 1 }}>
+            Movies
+          </Typography>
           <Carousel>
-            <MediaCard
-              posterUrl={props.posterUrl}
-              title={props.title}
-              releaseDate={props.releaseDate}
-              overview={props.overview}
-            />
+            {props.movieData.map((movie: any) => {
+              <MediaCard
+                key={movie.id}
+                posterUrl={movie.poster_path}
+                title={movie.title}
+                releaseDate={movie.release_date}
+                overview={movie.overview}
+              />;
+              {
+                console.log(movie);
+              }
+            })}
           </Carousel>
         </Box>
       </Container>
@@ -121,16 +136,26 @@ function Home(props: any) {
 }
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-
-  
+  let movieData: any;
+  try {
+    const movieResponse = await axios.get(
+      `https://api.themoviedb.org/3/movie/popular`,
+      {
+        params: {
+          api_key: process.env.TMDBkey,
+          language: 'en-US',
+          page: '1',
+        },
+      }
+    );
+    movieData = movieResponse.data.results;
+  } catch (error) {
+    console.log(error);
+  }
 
   return {
     props: {
-      posterUrl: '9Gtg2DzBhmYamXBS1hKAhiwbBKS.jpg',
-      title: 'Doctor Strange in the Multiverse of Madness',
-      releaseDate: '2022-05-04',
-      overview:
-        'Doctor Strange, with the help of mystical allies both old and new, traverses the mind-bending and dangerous alternate realities of the Multiverse to confront a mysterious new adversary.',
+      movieData,
     },
   };
 };

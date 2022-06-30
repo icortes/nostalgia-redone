@@ -10,6 +10,7 @@ import {
 import type { GetServerSideProps, NextPage } from 'next';
 import Head from 'next/head';
 import { ChangeEvent, FormEvent, useState } from 'react';
+import Carousel from 'react-material-ui-carousel';
 import ResponsiveAppBar from '../components/AppBar';
 import MediaCard from '../components/MediaCard';
 
@@ -104,18 +105,25 @@ function Home(props: any) {
           </Grid>
         </Box>
 
-        <MediaCard
-          posterUrl={props.posterUrl}
-          title={props.title}
-          releaseDate={props.releaseDate}
-          overview={props.overview}
-        />
+        <Box bgcolor={'white'} component={'div'} sx={{ py: 4, px: 3 }}>
+          <Carousel>
+            <MediaCard
+              posterUrl={props.posterUrl}
+              title={props.title}
+              releaseDate={props.releaseDate}
+              overview={props.overview}
+            />
+          </Carousel>
+        </Box>
       </Container>
     </>
   );
 }
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
+
+  
+
   return {
     props: {
       posterUrl: '9Gtg2DzBhmYamXBS1hKAhiwbBKS.jpg',

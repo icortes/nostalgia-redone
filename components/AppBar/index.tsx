@@ -4,7 +4,6 @@ import {
   Box,
   Button,
   Container,
-  Icon,
   IconButton,
   Menu,
   MenuItem,
@@ -15,7 +14,7 @@ import { MouseEvent, useState } from 'react';
 
 const pages = ['Search', 'My List'];
 
-export default function SearchBar() {
+export default function ResponsiveAppBar() {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 
   const handleOpenNavMenu = (event: MouseEvent<HTMLElement>) => {
@@ -28,7 +27,7 @@ export default function SearchBar() {
 
   return (
     <AppBar position='static'>
-      <Container maxWidth='xl'>
+      <Container maxWidth='lg'>
         <Toolbar disableGutters>
           <Tv
             fontSize='large'
